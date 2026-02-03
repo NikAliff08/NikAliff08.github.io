@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Cake Game</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 30px;
+        }
+        #cakeArea {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            background-color: #fff0d4; /* default vanilla */
+            border-radius: 50%;
+            border: 3px solid #dca;
+            overflow: hidden;
+        }
+        .topping {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .options button {
+            margin: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Decorate Your Birthday Cake!</h1>
+
+<div id="cakeArea"></div>
+
+<div class="options">
+    <h3>Flavour:</h3>
+    <button onclick="setFlavour('vanilla')">Vanilla</button>
+    <button onclick="setFlavour('chocolate')">Chocolate</button>
+    <button onclick="setFlavour('red')">Red Velvet</button>
+    <button onclick="setFlavour('strawberry')">Strawberry</button>
+</div>
+
+<div class="options">
+    <h3>Toppings:</h3>
+    <button onclick="addTopping('chocolate-chip')">Chocolate Chips</button>
+    <button onclick="addTopping('cherry')">Cherry</button>
+    <button onclick="addTopping('sprinkles')">Sprinkles</button>
+    <button onclick="addTopping('candle')">Candle</button>
+</div>
+
+<div class="options">
+    <h3>Tools:</h3>
+    <button onclick="useTool('rotate')">Rotate Last Topping</button>
+    <button onclick="useTool('remove')">Remove Last Topping</button>
+</div>
+
+<button onclick="finishCake()">Finish Cake</button>
+
+<p id="message"></p>
+<script>
+const cakeArea = document.getElementById('cakeArea');
+const msg = document.getElementById("message");
+let toppingsList = [];
+
+function setFlavour(flavour) {
+    switch(flavour){
+        case 'vanilla': cakeArea.style.backgroundColor = '#fff0d4'; break;
+        case 'chocolate': cakeArea.style.backgroundColor = '#8b5a2b'; break;
+        case 'red': cakeArea.style.backgroundColor = '#ff4c4c'; break;
+        case 'strawberry': cakeArea.style.backgroundColor = '#ff9aa2'; break;
+    }
+}
+
+function addTopping(type){
+    const topping = document.createElement('div');
+    topping.classList.add('topping');
+    topping.style.left = Math.random() * 250 + 'px'; // random position in cake
+    topping.style.top = Math.random() * 250 + 'px';
+
+    switch(type){
+        case 'chocolate-chip': topping.style.backgroundColor = '#3e2723'; topping.style.borderRadius='50%'; break;
+        case 'cherry': topping.style.backgroundColor = 'red'; topping.style.borderRadius='50%'; break;
+        case 'sprinkles': topping.style.backgroundColor = 'yellow'; topping.style.width='10px'; topping.style.height='10px'; topping.style.borderRadius='50%'; break;
+        case 'candle': topping.style.backgroundColor = 'orange'; topping.style.width='10px'; topping.style.height='40px'; break;
+    }
+
+    cakeArea.appendChild(topping);
+    toppingsList.push(topping);
+}
+
+function useTool(tool){
+    if(toppingsList.length === 0) return;
+    const last = toppingsList[toppingsList.length-1];
+    if(tool==='rotate'){
+        last.style.transform = 'rotate(' + (Math.random()*360) + 'deg)';
+    } else if(tool==='remove'){
+        cakeArea.removeChild(last);
+        toppingsList.pop();
+    }
+}
+
+function finishCake(){
+		msg.textContent = "Cake anda telah SIAP. membawa ke page seterusnya";
+		msg.style.color = "green";
+		setTimeout(() => {
+		window.location.href = "wish-birthday.html";
+		}, 1000);
+}
+</script>
+
+</body>
+</html>

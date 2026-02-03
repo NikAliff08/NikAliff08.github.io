@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Birthday suprise</title>
+	<style>
+		body {
+			font-family: 'Cinzel', sans-serif;
+			text-align: center;
+			background-color: gray;
+			margin-top: 100px;
+		}
+		input, button{
+			padding: 10px;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Please enter your passcode</h1>
+	<input type="text" id="passcodeInput" placeholder="Enter Passcode">
+	<button onclick="checkPasscode()">Submit</button>
+	<p id="message"></p>
+	
+	<script>
+		const correctPasscode = "Azmira08";
+		function checkPasscode() {
+			const userInput = document.getElementById("passcodeInput").value;
+			const msg = document.getElementById("message");
+			
+			if(userInput===correctPasscode){
+				msg.textContent = "Correct! Loading to the next page...";
+				msg.style.color = "green";
+				setTimeout(() => {
+					window.location.href = "decogame.html";
+				}, 1000);
+			} else {
+				msg.textContent = "Wrong! try again!";
+				msg.style.color ="red";
+			}
+		}
+	</script>
+</body>
+</html>
